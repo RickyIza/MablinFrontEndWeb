@@ -1,0 +1,13 @@
+.fas {
+    cursor: pointer;
+    font-size: 25px;
+    margin: 0px 2px;
+}
+
+.fa-chart-line {
+    color: darkcyan;
+}
+
+.fa-trash {
+    color: #a71c28;
+}

@@ -1,0 +1,49 @@
+        <!-- Page Content -->
+        <div id="content" class="bg-grey w-100">
+
+            <section class="bg-light py-3">
+                <div class="container">
+                    <div class="row" *ngIf="authService.userData as user">
+                        <div class="col-lg-9 col-md-8">
+                          <h1 class="font-weight-bold mb-0">Bienvenido {{(user.displayName) ? user.displayName : 'User'}}</h1>
+                          <p class="lead text-muted">Revisa la última información del Estudiante</p>
+                        </div>
+                        <div class="col-lg-3 col-md-4 d-flex">
+                          <button class="btn btn-primary w-100 align-self-center">Agregar</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-mix py-3">
+              <div class="container">
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Nota</th>
+                        <th scope="col">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let nota of nota">
+                        <td>{{nota.idResultado}}</td>
+                        <td>{{nota.tipoEjercicio}}</td>
+                        <td>{{nota.nota}}</td>
+                        <td>
+                          <i class="fas fa-search"></i>
+                          <i class="fas fa-chart-line"></i>
+                          <i class="fas fa-trash"></i>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>  
+          
+              </div>
+            </section>
+
+            <section class="bg-mix py-3">
+              <canvas id="canvas">{{chart}}</canvas>
+            </section>
+      </div>
