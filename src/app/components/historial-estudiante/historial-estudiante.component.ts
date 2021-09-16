@@ -1,25 +1,28 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AuthService } from '../../../services/auth.service';
-import { EstudianteService } from '../../../services/estudiante.service';
-import { Nota } from '../../../models/nota';
-import { NotasService } from '../../../services/notas.service';
 import { Chart,registerables } from 'chart.js';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-
+import { AuthService } from 'src/app/services/auth.service';
+import { EstudianteService } from 'src/app/services/estudiante.service';
+import { NotasService } from 'src/app/services/notas.service';
+import { Nota } from 'src/app/models/nota';
 
 @Component({
-  selector: 'app-historial',
-  templateUrl: './historial.component.html',
-  styleUrls: ['./historial.component.css']
+  selector: 'app-historial-estudiante',
+  templateUrl: './historial-estudiante.component.html',
+  styleUrls: ['./historial-estudiante.component.css']
 })
-export class HistorialComponent implements OnInit {
+export class HistorialEstudianteComponent implements OnInit {
   searchKey:string="";
+
+  public searchTerm:string="";
   nota:Nota[];
   resultado:any;
   tipo:any;
+  conteo:any[];
   suma:any;
+  resta:any;
   chart:any=[];
   id:string;
   constructor(
@@ -36,21 +39,21 @@ export class HistorialComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.search.valueChanges
-    .pipe(
-      debounceTime(300)
-
-    )
-    .subscribe(value=>this.searchEmitter.emit(value))
 
     this.notaService.getEstudiante(this.id).subscribe(res=>{
     this.nota=res;
+    this.notaService.search.subscribe((val:any)=>{
+    this.searchKey=val;
+
+   
     console.log(res);
+
     this.tipo=this.nota.map((nota)=>
     nota.tipoEjercicio);
+    console.log(this.tipo);
     this.resultado=this.nota.map((nota)=>
     nota.nota);
-    
+  })
 
     this.chart=new Chart('canvas',{
       type:'line',
@@ -77,16 +80,17 @@ export class HistorialComponent implements OnInit {
   obtenerNota(){
     this.notaService.getEstudiante(this.id).subscribe(res=>{
       console.log(res.data());
-
-
     })
-
-
   }
 
-  search=new FormControl('')
+  search(event:any){
+    this.searchTerm=(event.target as HTMLInputElement).value;
+    console.log(this.searchTerm);
+    this.notaService.search.next(this.searchTerm);
+  }
 
-  @Output('search') searchEmitter = new EventEmitter<string>();
+
+
 
 
 }

@@ -13,14 +13,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class DasboardComponent implements OnInit {
   estudiante:Estudiante[]
-
   nuevoEst:Estudiante=new Estudiante();
-
+  showANuevo!: boolean;
+  showActualizar!: boolean;
   fecha:any;
   age;
   showAge;
-
   nuevoForm : FormGroup;
+  filtroEstudiante:'';
 
   constructor(
     public authService: AuthService,
@@ -42,10 +42,14 @@ export class DasboardComponent implements OnInit {
       this.estudiante=res;
       this.fecha=this.estudiante.map((estudiante)=>
       estudiante.fechaNacimiento);
+      console.log(this.fecha)  
+      if(this.fecha){
           const convertAge = new Date(this.fecha);
+          console.log(convertAge)  
           const timeDiff = Math.abs(Date.now() - convertAge.getTime());
           this.showAge = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
           console.log(this.showAge)  
+      }
     });
   }
 
@@ -79,9 +83,36 @@ export class DasboardComponent implements OnInit {
   listEstuiantes(){
     this.estudianteService.list().subscribe(res=>{
       this.estudiante=res;
+    })
+  }
+  clicknuevoEstudiante(){
+    this.nuevoForm.reset();
+    this.showANuevo=true;
+    this.showActualizar=false;
+  }
+  editEstudiante(estudiante:any){
+    this.showANuevo=false;
+    this.showActualizar=true;
+    this.nuevoEst.idEstudiante=estudiante.idEstudiante
+    this.nuevoForm.controls['nombre'].setValue(estudiante.nombres);
+    this.nuevoForm.controls['apellido'].setValue(estudiante.apellidos);
+    this.nuevoForm.controls['fechaNacimiento'].setValue(estudiante.fechaNacimiento);
+
+  }
+  actualizarEstudiante(){
+    this.nuevoEst.idTutor='8cW723fW4z9q4SE2Inpy';
+    this.nuevoEst.nombres=this.nuevoForm.value.nombre;
+    this.nuevoEst.apellidos=this.nuevoForm.value.apellido;
+    this.nuevoEst.fechaNacimiento=this.nuevoForm.value.fechaNacimiento;
+    this.estudianteService.updateEstudiantes(this.nuevoEst,this.nuevoEst.idEstudiante)
+    .subscribe(res=>{
+      this.toastr.success('Estudiante Actualizado');
+      let ref = document.getElementById('cancel');
+      ref?.click();
+      this.nuevoForm.reset();
+      this.listEstuiantes();
 
     })
-
 
   }
 

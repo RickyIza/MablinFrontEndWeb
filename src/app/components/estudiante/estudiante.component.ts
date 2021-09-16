@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EstudianteComponent implements OnInit {
 
+  handleSearch(value: string)
+  {
+    console.log(value)
+  }
+
   constructor() { }
 
   ngOnInit(): void {

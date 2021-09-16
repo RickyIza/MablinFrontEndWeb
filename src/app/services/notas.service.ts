@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment.prod';
 
@@ -11,6 +11,8 @@ import { Nota } from '../models/nota';
   providedIn: 'root'
 })
 export class NotasService {
+  filtroEstudiante='';
+  public search=new BehaviorSubject<string>("");
   url : string = environment.urlGlobal + "/notas";
   httpOptions = {
     headers: new HttpHeaders({
@@ -45,8 +47,6 @@ export class NotasService {
         retry(1)
       );
   }
-
-
 getEstudiante(id:string): Observable<any> {
   return this.http.get<any>(this.url + '/' + id, this.httpOptions)
   .pipe(map((res:any)=>{

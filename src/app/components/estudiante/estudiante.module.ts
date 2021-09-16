@@ -12,6 +12,7 @@ import { SharedModule } from '../shared/shared.module';
 import { DetalleEstudianteComponent } from './detalle-estudiante/detalle-estudiante.component';
 
 
+
 @NgModule({
   declarations: [
     EstudianteComponent,
@@ -21,6 +22,8 @@ import { DetalleEstudianteComponent } from './detalle-estudiante/detalle-estudia
     CreateEstudiantesComponent,
     HistorialComponent,
     DetalleEstudianteComponent,
+
+
 
   ],
   imports: [

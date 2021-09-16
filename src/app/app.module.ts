@@ -16,6 +16,10 @@ import { ToastrModule } from 'ngx-toastr';
 import { EstudianteModule } from './components/estudiante/estudiante.module';
 import { SharedModule } from './components/shared/shared.module';
 import { DasboardComponent } from './components/dasboard/dasboard.component';
+import { FiltroEstudiantePipe } from './pipes/filtro-estudiante.pipe';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { HistorialEstudianteComponent } from './components/historial-estudiante/historial-estudiante.component';
+
 
 @NgModule({
   declarations: [
@@ -23,9 +27,12 @@ import { DasboardComponent } from './components/dasboard/dasboard.component';
     HomeComponent,
     LoginComponent,
     DasboardComponent,
+    FiltroEstudiantePipe,
+    HistorialEstudianteComponent,
   ],
   imports: [
     BrowserModule,
+    Ng2SearchPipeModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
@@ -34,9 +41,10 @@ import { DasboardComponent } from './components/dasboard/dasboard.component';
     BrowserAnimationsModule,
     EstudianteModule,
     SharedModule,
+
     
   ],
-  providers: [AuthService],
+  providers: [AuthService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -8,7 +8,7 @@ const routes: Routes = [
 
   { path: '', component: ListEstudiantesComponent },
   { path: 'historial', component: HistorialComponent },
-  { path: 'detalle/:idEstudiante', component: HistorialComponent },
+  { path: 'detalles/:idEstudiante', component: HistorialComponent },
 ];
 
 @NgModule({

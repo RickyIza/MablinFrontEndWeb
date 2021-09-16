@@ -5,6 +5,7 @@ import { EstudianteComponent } from './components/estudiante/estudiante.componen
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './shared/guard/auth.guard';
+import { HistorialEstudianteComponent } from './components/historial-estudiante/historial-estudiante.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'detalle/:idEstudiante', component: HistorialEstudianteComponent},
   { path: 'dashboard', component: DasboardComponent , canActivate: [AuthGuard]},
   {
     path: 'estudiante', component: EstudianteComponent,

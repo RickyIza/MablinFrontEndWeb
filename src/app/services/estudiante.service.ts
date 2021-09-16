@@ -12,6 +12,7 @@ import { Estudiante } from '../models/estudiante';
 })
 export class EstudianteService {
   url : string = environment.urlGlobal + "/estudiantes";
+  
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -45,7 +46,7 @@ export class EstudianteService {
     );
 }
 
-  updateEstudiantes(data:any,id:number)
+  updateEstudiantes(data:any,id:string)
   {
     return this.http.put<any>(this.url + '/' + id, data, this.httpOptions)
     .pipe(map((res:any)=>{
@@ -53,11 +54,6 @@ export class EstudianteService {
     })
     );
 }
-
-
-
-
-  
 
   list(): Observable<Estudiante[]>{
     return this.http.get<Estudiante[]>(this.url, this.httpOptions)
